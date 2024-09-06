@@ -1,5 +1,10 @@
 from homeassistant import config_entries
-from homeassistant.const import CONF_REFRESH_TOKEN
+import voluptuous as vol
+from homeassistant.const import CONF_SCAN_INTERVAL
+
+# Define your own constant for refresh token
+CONF_REFRESH_TOKEN = "refresh_token"
+
 from .api import PetnovationsAPI
 
 class PetnovationsConfigFlow(config_entries.ConfigFlow, domain="petnovations"):
