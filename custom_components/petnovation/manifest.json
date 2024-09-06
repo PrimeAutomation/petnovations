@@ -1,0 +1,11 @@
+{
+    "domain": "petnovations",
+    "name": "Petnovations",
+    "version": "1.0.1b1",
+    "config_flow": true,
+    "documentation": "https://github.com/PrimeAutomation/petnovations",
+    "dependencies": [],
+    "codeowners": ["@PrimeAutomation"],
+    "requirements": ["requests"]
+  }
+  
