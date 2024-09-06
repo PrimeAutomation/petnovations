@@ -1,7 +1,7 @@
 import logging
 import requests
 from homeassistant.components.sensor import SensorEntity
-from homeassistant.const import CONF_HOST, CONF_API_KEY, DEVICE_CLASS_TIMESTAMP
+from homeassistant.const import CONF_HOST, CONF_API_KEY, CONF_REFRESH_TOKEN, DEVICE_CLASS_TIMESTAMP
 from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from datetime import timedelta
@@ -11,6 +11,7 @@ _LOGGER = logging.getLogger(__name__)
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_HOST): str,
     vol.Required(CONF_API_KEY): str,
+    vol.Required(CONF_REFRESH_TOKEN): str,
 })
 
 async def async_setup_entry(hass, entry):
@@ -18,6 +19,7 @@ async def async_setup_entry(hass, entry):
         hass,
         entry.data[CONF_HOST],
         entry.data[CONF_API_KEY],
+        entry.data[CONF_REFRESH_TOKEN],
     )
     await coordinator.async_refresh()
 
@@ -28,7 +30,7 @@ async def async_setup_entry(hass, entry):
     return True
 
 class PetnovationsDataUpdateCoordinator(DataUpdateCoordinator):
-    def __init__(self, hass, host, api_key):
+    def __init__(self, hass, host, api_key, refresh_token):
         super().__init__(
             hass,
             _LOGGER,
@@ -37,13 +39,44 @@ class PetnovationsDataUpdateCoordinator(DataUpdateCoordinator):
         )
         self.host = host
         self.api_key = api_key
+        self.refresh_token = refresh_token
+        self.access_token = None
+        self._refresh_access_token()
+
+    def _refresh_access_token(self):
+        """Refresh the access token using the refresh token."""
+        try:
+            response = requests.post(
+                f"{self.host}/facade/v1/mobile-user/refreshToken",
+                json={"refreshToken": self.refresh_token},
+            )
+            response.raise_for_status()
+            tokens = response.json()
+            self.access_token = tokens.get("accessToken")
+        except Exception as e:
+            _LOGGER.error(f"Failed to refresh access token: {e}")
+            self.access_token = None
 
     async def _async_update_data(self):
+        """Fetch data from API with the current access token."""
+        if not self.access_token:
+            self._refresh_access_token()
+        
         try:
+            headers = {
+                "Authorization": f"Bearer {self.access_token}"
+            }
             response = requests.get(
                 f"{self.host}/device/device",
-                headers={"Authorization": f"Bearer {self.api_key}"}
+                headers=headers
             )
+            if response.status_code == 401:  # Unauthorized, token may be expired
+                self._refresh_access_token()
+                headers["Authorization"] = f"Bearer {self.access_token}"
+                response = requests.get(
+                    f"{self.host}/device/device",
+                    headers=headers
+                )
             response.raise_for_status()
             data = response.json()
             return data
