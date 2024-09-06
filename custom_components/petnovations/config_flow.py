@@ -1,22 +1,22 @@
-import logging
-import voluptuous as vol
 from homeassistant import config_entries
-from .const import CONF_REFRESH_TOKEN
+from homeassistant.const import CONF_REFRESH_TOKEN
+from .api import PetnovationsAPI
 
-_LOGGER = logging.getLogger(__name__)
-
-class PetnovationsConfigFlow(config_entries.ConfigFlow):
+class PetnovationsConfigFlow(config_entries.ConfigFlow, domain="petnovations"):
     VERSION = 1
 
     async def async_step_user(self, user_input=None):
         if user_input is not None:
             refresh_token = user_input[CONF_REFRESH_TOKEN]
-            return self.async_create_entry(
-                title="Petnovations",
-                data={
-                    CONF_REFRESH_TOKEN: refresh_token
-                }
-            )
+            api = PetnovationsAPI(refresh_token)
+            token = api._get_new_token()
+            if token:
+                return self.async_create_entry(
+                    title="Petnovations",
+                    data={CONF_REFRESH_TOKEN: refresh_token},
+                )
+            else:
+                return self.async_abort(reason="Invalid refresh token")
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema({

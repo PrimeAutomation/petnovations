@@ -1,16 +1,23 @@
-from .const import DOMAIN, CONF_REFRESH_TOKEN  # Ensure this import is correct
+from homeassistant import config_entries
+from homeassistant.const import CONF_SCAN_INTERVAL
+from .api import PetnovationsAPI
+from .sensor import PetnovationsCoordinator
 
-async def async_setup(hass, config):
-    """Set up the Petnovations integration."""
-    return True
+async def async_setup_entry(hass, config_entry):
+    refresh_token = config_entry.data[CONF_REFRESH_TOKEN]
+    api = PetnovationsAPI(refresh_token)
+    coordinator = PetnovationsCoordinator(hass, api)
+    await coordinator.async_config_entry_first_refresh()
 
-async def async_setup_entry(hass, entry):
-    """Set up Petnovations from a config entry."""
-    hass.data.setdefault(DOMAIN, {})
-    refresh_token = entry.data[CONF_REFRESH_TOKEN]
-    # Use the refresh token to set up the integration
-    return True
+    hass.data.setdefault("petnovations", {})
+    hass.data["petnovations"]["coordinator"] = coordinator
 
-async def async_unload_entry(hass, entry):
-    """Unload a config entry."""
+    # Add devices and sensors
+    for device in coordinator.data["thingList"]:
+        hass.helpers.discovery.async_load_platform(
+            "sensor",
+            "petnovations",
+            {**config_entry.data, "device": device},
+            config_entry,
+        )
     return True
