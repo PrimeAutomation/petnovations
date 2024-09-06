@@ -6,6 +6,7 @@
     "documentation": "https://github.com/PrimeAutomation/petnovations",
     "dependencies": [],
     "codeowners": ["@PrimeAutomation"],
-    "requirements": ["requests"]
+    "requirements": ["requests"],
+    "iot_class": "cloud_polling",
   }
   

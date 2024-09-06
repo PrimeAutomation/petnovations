@@ -1,5 +1,7 @@
 from homeassistant import config_entries
 from homeassistant.const import CONF_HOST, CONF_API_KEY, CONF_REFRESH_TOKEN
+from .const import DOMAIN
+
 
 DOMAIN = "petnovations"
 
