@@ -3,6 +3,9 @@ from homeassistant.const import CONF_SCAN_INTERVAL
 from .api import PetnovationsAPI
 from .sensor import PetnovationsCoordinator
 
+# Define your own constant for refresh token
+CONF_REFRESH_TOKEN = "refresh_token"
+
 async def async_setup_entry(hass, config_entry):
     refresh_token = config_entry.data[CONF_REFRESH_TOKEN]
     api = PetnovationsAPI(refresh_token)
