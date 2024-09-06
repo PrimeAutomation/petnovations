@@ -14,7 +14,7 @@ class PetnovationsConfigFlow(config_entries.ConfigFlow, domain="petnovations"):
         if user_input is not None:
             refresh_token = user_input[CONF_REFRESH_TOKEN]
             api = PetnovationsAPI(refresh_token)
-            token = api._get_new_token()
+            token = await api._get_new_token()
             if token:
                 return self.async_create_entry(
                     title="Petnovations",
