@@ -2,7 +2,6 @@ import logging
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.helpers import config_validation as cv
-from .const import CONF_HOST, CONF_API_KEY, CONF_REFRESH_TOKEN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -16,22 +15,22 @@ class PetnovationsConfigFlow(config_entries.ConfigFlow):
 
     async def async_step_user(self, user_input=None):
         if user_input is not None:
-            self._host = user_input[CONF_HOST]
-            self._api_key = user_input[CONF_API_KEY]
-            self._refresh_token = user_input[CONF_REFRESH_TOKEN]
+            self._host = user_input["host"]
+            self._api_key = user_input["api_key"]
+            self._refresh_token = user_input["refresh_token"]
             return self.async_create_entry(
                 title="Petnovations",
                 data={
-                    CONF_HOST: self._host,
-                    CONF_API_KEY: self._api_key,
-                    CONF_REFRESH_TOKEN: self._refresh_token
+                    "host": self._host,
+                    "api_key": self._api_key,
+                    "refresh_token": self._refresh_token
                 }
             )
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema({
-                vol.Required(CONF_HOST): str,
-                vol.Required(CONF_API_KEY): str,
-                vol.Required(CONF_REFRESH_TOKEN): str,
+                vol.Required("host"): str,
+                vol.Required("api_key"): str,
+                vol.Required("refresh_token"): str,
             })
         )

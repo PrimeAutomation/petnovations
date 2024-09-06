@@ -1,17 +1,18 @@
-from homeassistant import config_entries
-from homeassistant.const import CONF_HOST, CONF_API_KEY, CONF_REFRESH_TOKEN
 from .const import DOMAIN
 
-
-DOMAIN = "petnovations"
-
 async def async_setup(hass, config):
+    """Set up the Petnovations integration."""
     return True
 
 async def async_setup_entry(hass, entry):
-    # Setup code here
+    """Set up Petnovations from a config entry."""
+    hass.data.setdefault(DOMAIN, {})
+    refresh_token = entry.data["refresh_token"]
+    # Use the refresh token to set up the integration
+    # Perform setup with the refresh token
     return True
 
 async def async_unload_entry(hass, entry):
-    # Unloading code here
+    """Unload a config entry."""
+    # Perform cleanup here
     return True

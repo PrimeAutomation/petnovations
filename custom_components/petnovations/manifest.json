@@ -1,12 +1,12 @@
 {
     "domain": "petnovations",
     "name": "Petnovations",
-    "version": "1.0.1b1",
+    "version": "1.0.0b6",
     "config_flow": true,
     "documentation": "https://github.com/PrimeAutomation/petnovations",
     "dependencies": [],
     "codeowners": ["@PrimeAutomation"],
     "requirements": ["requests"],
-    "iot_class": "cloud_polling",
+    "iot_class": "cloud_polling"
   }
   
