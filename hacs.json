@@ -1,0 +1,5 @@
+{
+    "name": "Petnovations Custom Integration",
+    "domains": ["sensor"],
+    "render_readme": true
+  }
