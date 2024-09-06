@@ -1,8 +1,8 @@
 import logging
 import voluptuous as vol
 from homeassistant import config_entries
-from homeassistant.const import CONF_HOST, CONF_API_KEY, CONF_REFRESH_TOKEN
 from homeassistant.helpers import config_validation as cv
+from .const import CONF_HOST, CONF_API_KEY, CONF_REFRESH_TOKEN
 
 _LOGGER = logging.getLogger(__name__)
 
