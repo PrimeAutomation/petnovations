@@ -15,5 +15,3 @@ Thanks Again
 
 ![](https://github.com/PrimeAutomation/petnovations/blob/main/example.png)
 
-
-
