@@ -8,6 +8,5 @@
   "config_flow": true,
   "documentation": "https://github.com/PrimeAutomation/petnovations",
   "issue_tracker": "https://github.com/PrimeAutomation/petnovations/issues",
-  "iot_class": "cloud_polling",
-  "logo": "/config/custom_components/petnovations/static/logo.png"
+  "iot_class": "cloud_polling"
 }
