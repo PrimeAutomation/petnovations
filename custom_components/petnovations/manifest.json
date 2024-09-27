@@ -1,13 +1,12 @@
 {
   "domain": "petnovations",
   "name": "CatGenie A.I. by Petnovations",
-  "version": "1.0",
-  "requirements": ["requests"],
-  "dependencies": [],
   "codeowners": ["@bensoae87"],
   "config_flow": true,
+  "dependencies": [],
   "documentation": "https://github.com/PrimeAutomation/petnovations",
-  "issue_tracker": "https://github.com/PrimeAutomation/petnovations/issues",
   "iot_class": "cloud_polling",
-  "logo": "/config/custom_components/petnovations/static/logo.png"
+  "issue_tracker": "https://github.com/PrimeAutomation/petnovations/issues",
+  "requirements": ["requests"],
+  "version": "1.0"
 }
