@@ -1,17 +1,36 @@
 # CatGenie A.I. By Petnovations
+
 Home Assistant Integration for Petnovations CatGenie A.I. using their Public API.
 
-Due to limitations yet with authenticating with your account phone number, you'll first need to installing a tracer tool to get your refreshToken by sniffing the traffic of the CatGenie A.I. mobile app. I was able to get the refreshToken myself using my MacBook M1 by first installing 'Requestly' (similar to wireshark). From there, I installed the CatGenie A.I. app to my MacBook, and was able to trace the traffic to obtain my refreshToken. 
+To utilize this integration, you'll need to obtain your 'refreshToken'. This can be done by utilizing a utility such as [Requestly](https://requestly.com/) on a macOS M1 to inspect the traffic of the 'CatGenie' mobile application. 
 
-Obtaining your refreshToken is important as this will be used every 15 minutes to refresh your access token that will be used to access the Petnovation API endpoint. You'll need this in order to configure your integration.
+The integration will provide you with several sensors that provide the current state of your CatGenie A.I:
 
-I hope to improve the integration in the future to allow for direct authentication with an account 'phone number' and having it authenticate with MFA (text message) as it does currently with the mobile application.
+* BLE Address
+* Cartridge Capacity (X Cycles)
+* Cartidge Remaining (X Cycles)
+* Cat Activation Delay (Disabled / X Minutes)
+* Cat Sensitivity
+* Do Not Disturb (XX:00 to XX:00)
+* Extra Dry (True / False)
+* Fan Shutter (True / False
+* Last Clean (X minutes/hours/days ago)
+* MAC Address
+* Manual Mode (Enabled/Disabled)
+* Network Status (Connected / Disconnected)
+* Network Type (Wifi, etc)
+* Operation Mode (Cat / Time / Manual Mode)
+* Operation Error
+* Operation Progress (Idle / X % Completed)
+* Operation Status (Idle / Cleaning)
+* Panel Lock (Enabled / Disabled)
+* Panel Lock Delay (Disabled / X Minutes)
+* Schedule Cycles (Disabled / [XX:XX:XX]
+* Serial Number (CGXXXXXXX)
+* Used Solution (XX.XXoz)
+* Volume Level (1-7)
 
-Version v1 of this mobile application will be focused primarily on building proper sensors, and working further on integration setup. I plan to work on switches and being able to control the CatGenie A.I. configurations (running manual cycles, adjusting settings, etc) once most of Version 1 is fleshed out.
-
-Thanks Again
-
-@bensoae87 at PrimeAutomation 
+This is a publicly developed integration that is not supported by the vendor, use at your own risk.
 
 ![](https://github.com/PrimeAutomation/petnovations/blob/main/example.png)
 
