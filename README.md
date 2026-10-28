@@ -1,10 +1,11 @@
 # CatGenie A.I. By Petnovations
 
----
-** This repository is retired in favor of the refactored work under [HA-Catgenie](https://github.com/PrimeAutomation/HA-Catgenie)**. This repository is for historical purposes.
+**This repository is retired in favor of the refactored work under [HA-Catgenie](https://github.com/PrimeAutomation/HA-Catgenie). This repository is for historical purposes and should not be used.**
+
 ---
 
-Home Assistant Integration for Petnovations CatGenie A.I. using their Public API.
+
+## Home Assistant Integration for Petnovations CatGenie A.I. using their Public API.
 
 To utilize this integration, you'll need to obtain your 'refreshToken'. This can be done by utilizing a utility such as [Requestly](https://requestly.com/) on a macOS M1 to inspect the traffic of the 'CatGenie' mobile application. 
 
